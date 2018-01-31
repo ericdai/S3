@@ -43,26 +43,25 @@ Edit this file to add a new location constraint. This location constraint must
 contain the information for the AWS S3 bucket to which you will write your
 data when you create a CloudServer bucket in this location.
 
-There are a few configurable options here:
-- :code:`type` : set to :code:`aws_s3` to indicate this location constraint is
-  writing data to AWS S3;
-- :code:`legacyAwsBehavior` : set to :code:`true` to indicate this region should
-  behave like AWS S3
-- :code:`us-east-1` : set to :code:`false` to indicate this region must behave like
-  any other AWS S3 region;
-- :code:`bucketName` : set to an *existing bucket* in your AWS S3 account. This
-  is the bucket in which your data will be stored for this location constraint;
-- :code:`awsEndpoint` : set to your bucket's endpoint, usually :code:`s3.amazonaws.com`;
-- :code:`bucketMatch` : set to :code:`true` for your object name to be the
-  same in the local bucket and the AWS S3 bucket; set to :code:`false` for your
-  object name to be of the form :code:`{{localBucketName}}/{{objectname}}`
-  in the AWS S3 hosted bucket;
+Configurable options:
+- :code:`type`: Set to :code:`aws_s3` to indicate this location constraint is
+  writing data to AWS S3.
+- :code:`legacyAwsBehavior`: Set to :code:`true` to make this region behave like
+  AWS S3.
+- :code:`us-east-1`: Set to :code:`false` to make this region behave like
+  any other AWS S3 region.
+- :code:`bucketName`: Set to an *existing bucket* in your AWS S3 account. This
+  is the bucket in which your data will be stored for this location constraint.
+- :code:`awsEndpoint`: Set to your bucket's endpoint, usually :code:`s3.amazonaws.com`.
+- :code:`bucketMatch`: Set to :code:`true` for object names to be the same in both the
+  local and AWS S3 buckets. Set to :code:`false` for object names to take the form 
+  :code:`{{localBucketName}}/{{objectname}}` in the AWS S3-hosted bucket.
 - :code:`credentialsProfile` and :code:`credentials` are two ways to provide
-  AWS S3 credentials for a bucket. *Use only one.* :
-- :code:`credentialsProfile` : set to the profile name to allow access to
-  the AWS S3 bucket from the :code:`~/.aws/credentials` file;
-- :code:`credentials` : set the two fields inside the object (:code:`accessKey`
-  and :code:`secretKey`) to their respective values from your AWS credentials.
+  AWS S3 credentials for a bucket. *Use only one.*
+  - :code:`credentialsProfile`: Set to the profile name to allow access to
+    the AWS S3 bucket from the :code:`~/.aws/credentials` file.
+  - :code:`credentials`: Set the two fields inside the object (:code:`accessKey`
+    and :code:`secretKey`) to their respective values from your AWS credentials.
 
 .. code:: json
 
@@ -98,8 +97,8 @@ There are a few configurable options here:
     (...)
 
 .. WARNING::
-   If you set :code:`bucketMatch` to :code:`true`, maintain only one local
-   bucket per AWS S3 location. If :code:`bucketMatch` is set :code:`true`,
+   If you set :code:`bucketMatch` to :code:`true`, you must maintain only one
+   local bucket per AWS S3 location. If :code:`bucketMatch` is set :code:`true`,
    object names in the AWS S3 bucket are not prefixed with a CloudServer
    bucket name. When an object is put to the :code:`zenko1` CloudServer bucket
    and a different object with the same name is put to the :code:`zenko2`
@@ -160,10 +159,10 @@ CloudServer.
 Testing: Put an Object to AWS S3 Using CloudServer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To start testing pushing to AWS S3, create a local bucket in the AWS S3
+To test pushing to AWS S3, create a local bucket in the AWS S3
 location constraint. This local bucket only stores the metadata locally,
 while both the data and any user metadata (:code:`x-amz-meta` headers
-sent with a PUT object, and tags) are stored on AWS S3.
+sent with a PUT object and tags) are stored on AWS S3.
 
 The following example builds on the previous steps.
 
@@ -212,7 +211,7 @@ new location constraint.
 
 You must provide one of your storage access keys to CloudServer.
 This can be found from your Storage Account dashboard, under "Settings," then
-"Access keys".
+"Access keys."
 
 In this example, our container, named ``zenkontainer``, belongs to the
 ``zenkomeetups`` storage account.
@@ -229,24 +228,22 @@ CloudServer bucket in this location.
 
 Configurable options include:
 
-- :code:`type` : set to :code:`azure` to indicate this location constraint is
-  writing data to MS Azure;
-- :code:`legacyAwsBehavior` : set to :code:`true` to indicate this region shall
-  behave like the AWS S3 :code:`us-east-1` region; set to :code:`false` to indicate
-  this region shall behave like any other AWS S3 region (in the case of MS Azure-
-  hosted data, this is mostly relevant for the format of errors);
-- :code:`azureStorageEndpoint` : set to your storage account's endpoint, usually
-  :code:`https://{{storageAccountName}}.blob.core.windows.name`;
-- :code:`azureContainerName` : set to an *existing container* in your MS Azure
+- :code:`type`: Set to :code:`azure` to write data to MS Azure.
+- :code:`legacyAwsBehavior`: Set to :code:`true` to make this location behave as 
+  if in the AWS S3 :code:`us-east-1` region. Set to :code:`false` to make 
+  this region behave as if in any other AWS S3 region (in the case of MS Azure-
+  hosted data, this is mostly relevant for error formatting).
+- :code:`azureStorageEndpoint`: Set to your storage account's endpoint, usually
+  :code:`https://{{storageAccountName}}.blob.core.windows.name`.
+- :code:`azureContainerName`: Set to an *existing container* in your MS Azure
   storage account. This is the container in which your data shll be stored for
-  this location constraint;
-- :code:`bucketMatch` : set to :code:`true` for the object name to be
-  the same in the local bucket and the MS Azure container; set to
-  :code:`false` for the object name to take the form
-  :code:`{{localBucketName}}/{{objectname}}` in the MS Azure container ;
-- :code:`azureStorageAccountName` : the MS Azure storage account to which your
-  container belongs;
-- :code:`azureStorageAccessKey` : one of the access keys associated with the
+  this location.
+- :code:`bucketMatch`: Set to :code:`true` for the object name to be the same in
+  the local bucket and the MS Azure container. Set to :code:`false` for the object
+  name to take the form :code:`{{localBucketName}}/{{objectname}}` in the MS Azure container.
+- :code:`azureStorageAccountName`: Set to the MS Azure storage account to which your
+  container belongs.
+- :code:`azureStorageAccessKey`: One of the access keys associated with the
   above-defined MS Azure storage account.
 
 .. code:: json
@@ -266,8 +263,8 @@ Configurable options include:
     (...)
 
 .. WARNING::
-   If you set :code:`bucketMatch` to :code:`true`, maintain only one local
-   bucket per AWS S3 location. If :code:`bucketMatch` is set :code:`true`,
+   If you set :code:`bucketMatch` to :code:`true`, you must maintain only one
+   local bucket per AWS S3 location. If :code:`bucketMatch` is set :code:`true`,
    object names in the AWS S3 bucket are not prefixed with a CloudServer
    bucket name. When an object is put to the :code:`zenko1` CloudServer bucket
    and a different object with the same name is put to the :code:`zenko2`
@@ -349,80 +346,77 @@ access key is :code:`accessKey1` and the default secret key is
 :code:`verySecretKey1`. See the `~/.s3cfg <./CLIENTS/#s3cmd>`__  template
 for details.
 
-CloudServer cannot access pre-existing objects in your MS Azure container
-at this time.
+CloudServer cannot access pre-existing objects in your MS Azure container.
 
 Google Cloud Storage as a Data Backend
 --------------------------------------
 
-From the the Google Cloud Console
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+From the Google Cloud Console
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Create the necessary buckets to use Google Cloud Storage as a data backend:
 
-- a main bucket set to storage class :code:`multi-regional`
-- a multipart upload bucket set to storage class :code:`regional`
-- an overflow bucket set to storage class :code:`multi-regional`
+- A main bucket set to storage class :code:`multi-regional`
+- A multipart upload bucket set to storage class :code:`regional`
+- An overflow bucket set to storage class :code:`multi-regional`
 
 .. NOTE::
-  The main and overflow buckets of storage class :code:`multi-regional` should be
-  set to the same location
+  The main and overflow buckets of storage class :code:`multi-regional` must be
+  set to the same location.
 
 The buckets must have versioning enabled:
 
 - This can be set using the cloud shell with command :code:`gsutil versioning on gs://${bucketname}`;
 - With AWS CLI set to the google endpoint and credentials, use
   :code:`put-bucket-versioning` from the :code:`s3api` commands on your bucket of choice;
-- Using other tools, please refer to your tool's documentation.
 
-From the CloudServer respository
+If using other tools, see those tools' documentation.
+
+From the CloudServer Respository
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 locationConfig.json
 ^^^^^^^^^^^^^^^^^^^
 
-Edit this file to add a new location constraint. This location constraint will
-contain the information for the Google Cloud Storage bucket to which you will
-be writing your data whenever you create a CloudServer bucket in this location.
-There are a few configurable options here:
+Edit this file to add a new location constraint. This location constraint contains 
+information for the Google Cloud Storage bucket to which you will write data whenever
+you create a CloudServer bucket in this location. This file contains a few configurable
+options:
 
-- :code:`type` : set to :code:`gcp` to indicate this location constraint is
-  writing data to Google Cloud Storage;
-- :code:`legacyAwsBehavior` : set to :code:`true` to indicate this region should
-  behave like AWS S3 :code:`us-east-1` region, set to :code:`false` to indicate
-  this region should behave like any other AWS S3 region;
-- :code:`bucketName` : set to an *existing bucket different from mpuBucketName*
-  *and overflowBucketName* in your Google Cloud Account;
-  this is the bucket in which your data will be stored for this location constraint;
-- :code:`mpuBucketName` : set to an *existing bucket different from bucketName*
-  *and overflowBucketName* in your Google Cloud Account; this is a bucket in which GCP
-  multipart upload temporary objects will be stored;
-- :code:`overflowBucketName` : set to an *existing bucket different from bucketName*
-  *and mpuBucketName* in your Google Cloud Account; this is a bucket in which GCP
-  multipart upload will use to perform the final compose operation.
-- :code:`gcpEndpoint` : set to your bucket's endpoint, usually :code:`storage.googleapis.com`;
-- :code:`bucketMatch` : set to :code:`true` if you want your object name to be the
-  same in your local bucket and your GCP bucket; set to :code:`false` if you
-  want your object name to be of the form :code:`{{localBucketName}}/{{objectname}}`
-  in your GCP hosted bucket;
+- :code:`type`: Set to :code:`gcp` to write data to Google Cloud Storage.
+- :code:`legacyAwsBehavior`: Set this constraint to :code:`true` to make this region
+  behave like the AWS S3 :code:`us-east-1` region. Set it to :code:`false` to make 
+  this region behave like any other AWS S3 region.
+- :code:`bucketName`: Set to an *existing bucket different from mpuBucketName*
+  *and overflowBucketName* in your Google Cloud account. This is the bucket in which
+  data will be stored.
+- :code:`mpuBucketName`: Set to an *existing bucket different from bucketName*
+  *and overflowBucketName* in your Google Cloud Account. This is the bucket in which
+  GCP multipart upload temporary objects will be stored;
+- :code:`overflowBucketName`: Set to an *existing bucket different from bucketName*
+  *and mpuBucketName* in your Google Cloud account. This is the bucket GCP multipart
+  upload will use to perform the final compose operation.
+- :code:`gcpEndpoint`: Set to your bucket's endpoint, usually :code:`storage.googleapis.com`;
+- :code:`bucketMatch`: Set to :code:`true` for object names to be identical
+  in the local and GCP buckets. Set to :code:`false` for object names to take the form
+  :code:`{{localBucketName}}/{{objectname}}` in the GCP-hosted bucket.
 - :code:`credentialsProfile` and :code:`credentials` are two ways to provide
-  your GCP credentials for the buckets, *use only one of them* :
-
-  - :code:`credentialsProfile` : set to the profile name allowing you to access
-    your GCP bucket from your :code:`~/.aws/credentials` file;
-  - :code:`credentials` : set the two fields inside the object (:code:`accessKey`
-    and :code:`secretKey`) to their respective values from your GCP Interop credentials.
-
-- :code:`serviceCredentials` : set the fields inside the object ( :code:`scopes`,
+  GCP credentials for the buckets. *Use only one!*
+  - :code:`credentialsProfile`: Set to the profile name allowing you to access
+    your GCP bucket from your :code:`~/.aws/credentials` file.
+  - :code:`credentials`: Set the two fields inside the object (:code:`accessKey`
+    and :code:`secretKey`) to their respective values from your GCP interopation
+    credentials.
+- :code:`serviceCredentials`: Set the fields inside the object ( :code:`scopes`,
   :code:`keyFilename`, and/or both :code:`serviceEmail` and :code:`serviceKey`)
+  - :code:`scopes`: Set to one of the following service scopes:
+  (https://developers.google.com/identity/protocols/googlescopes#storagev1)
+  - :code:`keyFilename`: Set to the full path of the GCP service keyfile.
+  - :code:`serviceEmail`: Set to the service email in the GCP service keyfile.
+  - :code:`serviceKey`: Set to the private key in the GCP service keyfile.
 
-  - :code:`scopes`: set to one of the following service scopes (https://developers.google.com/identity/protocols/googlescopes#storagev1)
-  - :code:`keyFilename`: set to the full path of the GCP service keyfile
-  - :code:`serviceEmail`: set to the service email that can be found in the GCP service keyfile
-  - :code:`serviceKey`: set to the private key that can be found in the GCP service keyfile
-
-In this example, our buckets will be named :code:`zenkobucket`,
-:code:`zenkobucketmpu`, :code:`zenkobucketoverflow` and have versioning enabled.
+In this example, buckets are named :code:`zenkobucket`,
+:code:`zenkobucketmpu`, :code:`zenkobucketoverflow` and versioning is enabled.
 
 .. code:: json
 
@@ -474,14 +468,13 @@ In this example, our buckets will be named :code:`zenkobucket`,
     (...)
 
 .. WARNING::
-   If you set :code:`bucketMatch` to :code:`true`, we strongly advise that you
-   only have one local bucket per GCP location.
-   Without :code:`bucketMatch` set to :code:`false`, your object names in your
-   GCP bucket will not be prefixed with your Cloud Server bucket name. This
-   means that if you put an object :code:`foo` to your CloudServer bucket
-   :code:`zenko1` and you then put a different :code:`foo` to your CloudServer
-   bucket :code:`zenko2` and both :code:`zenko1` and :code:`zenko2` point to the
-   same GCP bucket, the second :code:`foo` will overwrite the first :code:`foo`.
+   If you set :code:`bucketMatch` to :code:`true`, maintain only one local
+   bucket per GCP location. If :code:`bucketMatch` is set :code:`true`,
+   object names in the GCP bucket are not prefixed with a CloudServer
+   bucket name. When an object is put to the :code:`zenko1` CloudServer bucket
+   and a different object with the same name is put to the :code:`zenko2`
+   CloudServer bucket, both :code:`zenko1` and :code:`zenko2` point to the
+   same AWS bucket, and the second object overwrites the first.
 
 For Any Data Backend
 --------------------
@@ -494,11 +487,10 @@ config.json
 
 .. IMPORTANT::
    Only follow this section to define a given location as the default for
-   a specific endpoint
+   a specific endpoint.
 
-Edit the :code:`restEndpoint` section of :code:`config.json` file to add an
-endpoint definition matching the location you want to use as a default for an
-endpoint to this specific endpoint.
+Edit the :code:`restEndpoint` section of the :code:`config.json` file to add an
+endpoint definition that matches your desired default endpoint location.
 
 In this example, :code:`custom-location` is the default location for the
 endpoint :code:`zenkotos3.com`:
