@@ -10,8 +10,8 @@ constraint) with the right endpoint and credentials.
 This section shows you how to set up the public cloud backends Scality currently
 supports:
 
-- `Amazon S3 <#aws-s3-as-a-data-backend>`__ 
-- `Microsoft Azure <#microsoft-azure-as-a-data-backend>`__ 
+* `Amazon S3 <#aws-s3-as-a-data-backend>`__ 
+* `Microsoft Azure <#microsoft-azure-as-a-data-backend>`__ 
 
 For each public cloud backend, you must edit your CloudServer
 :code:`locationConfig.json` and perform a few setup steps.
@@ -26,9 +26,10 @@ Create a bucket to host data for this new location constraint.
 This bucket must have versioning enabled. You can activate this option at
 step 2 of bucket creation in the Console.
 
-- From the AWS CLI, use :code:`put-bucket-versioning` from the :code:`s3api`
-  commands on your bucket of choice
-- From any other tool, see that tool's documentation.
+From the AWS CLI, use :code:`put-bucket-versioning` from the :code:`s3api` commands 
+on your bucket of choice
+
+From any other tool, see that tool's documentation.
 
 In the present example, the bucket is named ``zenkobucket`` and versioning is
 enabled.
@@ -45,20 +46,16 @@ data when you create a CloudServer bucket in this location.
 
 Configurable options:
 
-- :code:`type`: Set to :code:`aws_s3` to indicate this location constraint is writing data to AWS S3.
-- :code:`legacyAwsBehavior`: Set to :code:`true` to make this region behave like AWS S3.
-- :code:`us-east-1`: Set to :code:`false` to make this region behave like any other AWS S3 region.
-- :code:`bucketName`: Set to an *existing bucket* in your AWS S3 account. This
+* :code:`type`: Set to :code:`aws_s3` to indicate this location constraint is writing data to AWS S3.
+* :code:`legacyAwsBehavior`: Set to :code:`true` to make this region behave like AWS S3.
+* :code:`us-east-1`: Set to :code:`false` to make this region behave like any other AWS S3 region.
+* :code:`bucketName`: Set to an *existing bucket* in your AWS S3 account. This
   is the bucket in which data will be stored for this location constraint.
-- :code:`awsEndpoint`: Set to your bucket's endpoint, usually :code:`s3.amazonaws.com`.
-- :code:`bucketMatch`: Set to :code:`true` for object names to be the same in both the
-  local and AWS S3 buckets. Set to :code:`false` for object names to take the form 
-  :code:`{{localBucketName}}/{{objectname}}` in the AWS S3-hosted bucket.
-- :code:`credentialsProfile` and :code:`credentials` are two ways to provide
-  AWS S3 credentials for a bucket. *Use only one.*
-  - :code:`credentialsProfile`: Set to the profile name to allow access to the AWS S3 bucket from the :code:`~/.aws/credentials` file.
-  - :code:`credentials`: Set the two fields inside the object (:code:`accessKey`
-    and :code:`secretKey`) to their respective values from your AWS credentials.
+* :code:`awsEndpoint`: Set to your bucket's endpoint, usually :code:`s3.amazonaws.com`.
+* :code:`bucketMatch`: Set to :code:`true` for object names to be the same in both the local and AWS S3 buckets. Set to :code:`false` for object names to take the form :code:`{{localBucketName}}/{{objectname}}` in the AWS S3-hosted bucket.
+* :code:`credentialsProfile` and :code:`credentials` are two ways to provide AWS S3 credentials for a bucket. *Use only one.*
+    * :code:`credentialsProfile`: Set to the profile name to allow access to the AWS S3 bucket from the :code:`~/.aws/credentials` file.
+    * :code:`credentials`: Set the two fields inside the object (:code:`accessKey` and :code:`secretKey`) to their respective values from your AWS credentials.
 
 .. code:: json
 
@@ -93,7 +90,7 @@ Configurable options:
     },
     (...)
 
-.. *WARNING:*::
+*WARNING*
    If you set :code:`bucketMatch` to :code:`true`, you must maintain only one
    local bucket per AWS S3 location. If :code:`bucketMatch` is set :code:`true`,
    object names in the AWS S3 bucket are not prefixed with a CloudServer
@@ -105,7 +102,7 @@ Configurable options:
 ~/.aws/credentials
 ^^^^^^^^^^^^^^^^^^
 
-.. *TIP:*::
+*TIP*
    If you have explicitly set :code:`accessKey` and :code:`secretKey`
    in your :code:`aws_s3` location's :code:`credentials` object
    (:code:`locationConfig.json`), skip this section.
@@ -133,7 +130,7 @@ writing data to AWS S3 through CloudServer.
 Run the Server as a Docker Container that Can Write to AWS S3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. *TIP:*::
+*TIP*
    If you set the :code:`credentials` object in :code:`locationConfig.json`
    file, there is no need to mount :code:`.aws/credentials`.
 
@@ -225,22 +222,22 @@ CloudServer bucket in this location.
 
 Configurable options include:
 
-- :code:`type`: Set to :code:`azure` to write data to MS Azure.
-- :code:`legacyAwsBehavior`: Set to :code:`true` to make this location behave as 
+* :code:`type`: Set to :code:`azure` to write data to MS Azure.
+* :code:`legacyAwsBehavior`: Set to :code:`true` to make this location behave as 
   if in the AWS S3 :code:`us-east-1` region. Set to :code:`false` to make 
   this region behave as if in any other AWS S3 region (in the case of MS Azure-
   hosted data, this is mostly relevant for error formatting).
-- :code:`azureStorageEndpoint`: Set to your storage account's endpoint, usually
+* :code:`azureStorageEndpoint`: Set to your storage account's endpoint, usually
   :code:`https://{{storageAccountName}}.blob.core.windows.name`.
-- :code:`azureContainerName`: Set to an *existing container* in your MS Azure
+* :code:`azureContainerName`: Set to an *existing container* in your MS Azure
   storage account. This is the container in which your data shll be stored for
   this location.
-- :code:`bucketMatch`: Set to :code:`true` for the object name to be the same in
+* :code:`bucketMatch`: Set to :code:`true` for the object name to be the same in
   the local bucket and the MS Azure container. Set to :code:`false` for the object
   name to take the form :code:`{{localBucketName}}/{{objectname}}` in the MS Azure container.
-- :code:`azureStorageAccountName`: Set to the MS Azure storage account to which your
+* :code:`azureStorageAccountName`: Set to the MS Azure storage account to which your
   container belongs.
-- :code:`azureStorageAccessKey`: One of the access keys associated with the
+* :code:`azureStorageAccessKey`: One of the access keys associated with the
   above-defined MS Azure storage account.
 
 .. code:: json
@@ -259,7 +256,7 @@ Configurable options include:
     },
     (...)
 
-.. *WARNING*::
+*WARNING*
    If you set :code:`bucketMatch` to :code:`true`, you must maintain only one
    local bucket per AWS S3 location. If :code:`bucketMatch` is set :code:`true`,
    object names in the AWS S3 bucket are not prefixed with a CloudServer
@@ -268,7 +265,7 @@ Configurable options include:
    CloudServer bucket, both :code:`zenko1` and :code:`zenko2` point to the
    same AWS bucket, and the second object overwrites the first.
 
-.. *TIP*::
+*TIP*
    You can export environment variables to override some of your
    :code:`locationConfig.json` variables. The syntax for these is
    :code:`{{region-name}}_{{ENV_VAR_NAME}}`. Currently available variables
@@ -353,11 +350,11 @@ From the Google Cloud Console
 
 Create the necessary buckets to use Google Cloud Storage as a data backend:
 
-- A main bucket set to storage class :code:`multi-regional`
-- A multipart upload bucket set to storage class :code:`regional`
-- An overflow bucket set to storage class :code:`multi-regional`
+* A main bucket set to storage class :code:`multi-regional`
+* A multipart upload bucket set to storage class :code:`regional`
+* An overflow bucket set to storage class :code:`multi-regional`
 
-.. *NOTE*::
+*NOTE*
   The main and overflow buckets of storage class :code:`multi-regional` must be
   set to the same location.
 
@@ -461,7 +458,7 @@ In this example, buckets are named :code:`zenkobucket`,
     },
     (...)
 
-.. *WARNING*::
+*WARNING*
    If you set :code:`bucketMatch` to :code:`true`, maintain only one local
    bucket per GCP location. If :code:`bucketMatch` is set :code:`true`,
    object names in the GCP bucket are not prefixed with a CloudServer
