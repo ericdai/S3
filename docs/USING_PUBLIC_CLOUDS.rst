@@ -27,9 +27,7 @@ This bucket must have versioning enabled. You can activate this option at
 step 2 of bucket creation in the Console.
 
 From the AWS CLI, use :code:`put-bucket-versioning` from the :code:`s3api` commands 
-on your bucket of choice
-
-From any other tool, see that tool's documentation.
+on your bucket of choice. From any other tool, see that tool's documentation.
 
 In the present example, the bucket is named ``zenkobucket`` and versioning is
 enabled.
@@ -358,11 +356,10 @@ Create the necessary buckets to use Google Cloud Storage as a data backend:
   The main and overflow buckets of storage class :code:`multi-regional` must be
   set to the same location.
 
-The buckets must have versioning enabled:
-
-- This can be set using the cloud shell with command :code:`gsutil versioning on gs://${bucketname}`;
-- With AWS CLI set to the google endpoint and credentials, use
-  :code:`put-bucket-versioning` from the :code:`s3api` commands on your bucket of choice;
+The buckets must have versioning enabled. Set this using the command 
+:code:`gsutil versioning on gs://${bucketname}` in the cloud shell. 
+With AWS CLI set to the Google endpoint and credentials, use
+:code:`put-bucket-versioning` from the :code:`s3api` commands on your bucket of choice.
 
 If using other tools, see those tools' documentation.
 
@@ -377,37 +374,36 @@ information for the Google Cloud Storage bucket to which you will write data whe
 you create a CloudServer bucket in this location. This file contains a few configurable
 options:
 
-- :code:`type`: Set to :code:`gcp` to write data to Google Cloud Storage.
-- :code:`legacyAwsBehavior`: Set this constraint to :code:`true` to make this region
+* :code:`type`: Set to :code:`gcp` to write data to Google Cloud Storage.
+* :code:`legacyAwsBehavior`: Set this constraint to :code:`true` to make this region
   behave like the AWS S3 :code:`us-east-1` region. Set it to :code:`false` to make 
   this region behave like any other AWS S3 region.
-- :code:`bucketName`: Set to an *existing bucket different from mpuBucketName*
+* :code:`bucketName`: Set to an *existing bucket different from mpuBucketName*
   *and overflowBucketName* in your Google Cloud account. This is the bucket in which
   data will be stored.
-- :code:`mpuBucketName`: Set to an *existing bucket different from bucketName*
+* :code:`mpuBucketName`: Set to an *existing bucket different from bucketName*
   *and overflowBucketName* in your Google Cloud Account. This is the bucket in which
   GCP multipart upload temporary objects will be stored;
-- :code:`overflowBucketName`: Set to an *existing bucket different from bucketName*
+* :code:`overflowBucketName`: Set to an *existing bucket different from bucketName*
   *and mpuBucketName* in your Google Cloud account. This is the bucket GCP multipart
   upload will use to perform the final compose operation.
-- :code:`gcpEndpoint`: Set to your bucket's endpoint, usually :code:`storage.googleapis.com`;
-- :code:`bucketMatch`: Set to :code:`true` for object names to be identical
+* :code:`gcpEndpoint`: Set to your bucket's endpoint, usually :code:`storage.googleapis.com`;
+* :code:`bucketMatch`: Set to :code:`true` for object names to be identical
   in the local and GCP buckets. Set to :code:`false` for object names to take the form
   :code:`{{localBucketName}}/{{objectname}}` in the GCP-hosted bucket.
-- :code:`credentialsProfile` and :code:`credentials` are two ways to provide
+* :code:`credentialsProfile` and :code:`credentials` are two ways to provide
   GCP credentials for the buckets. *Use only one!*
-  	- :code:`credentialsProfile`: Set to the profile name allowing you to access your GCP bucket from your :code:`~/.aws/credentials` file.
-  	- :code:`credentials`: Set the two fields inside the object (:code:`accessKey` and :code:`secretKey`) to their respective values from your GCP interopation credentials.
-- :code:`serviceCredentials`: Set the fields inside the object (:code:`scopes`,
+  	* :code:`credentialsProfile`: Set to the profile name allowing you to access your GCP bucket from your :code:`~/.aws/credentials` file.
+  	* :code:`credentials`: Set the two fields inside the object (:code:`accessKey` and :code:`secretKey`) to their respective values from your GCP interopation credentials.
+* :code:`serviceCredentials`: Set the fields inside the object (:code:`scopes`,
   :code:`keyFilename`, and/or both :code:`serviceEmail` and :code:`serviceKey`)
-	- :code:`scopes`: Set to one of the following service scopes:
-  (https://developers.google.com/identity/protocols/googlescopes#storagev1)
-	- :code:`keyFilename`: Set to the full path of the GCP service keyfile.
-	- :code:`serviceEmail`: Set to the service email in the GCP service keyfile.
-	- :code:`serviceKey`: Set to the private key in the GCP service keyfile.
+	* :code:`scopes`: Set to one of the following service scopes (https://developers.google.com/identity/protocols/googlescopes#storagev1)
+	* :code:`keyFilename`: Set to the full path of the GCP service keyfile.
+	* :code:`serviceEmail`: Set to the service email in the GCP service keyfile.
+	* :code:`serviceKey`: Set to the private key in the GCP service keyfile.
 
-In this example, buckets are named :code:`zenkobucket`,
-:code:`zenkobucketmpu`, :code:`zenkobucketoverflow` and versioning is enabled.
+In this example, buckets are named :code:`zenkobucket`, :code:`zenkobucketmpu`,
+:code:`zenkobucketoverflow` and versioning is enabled.
 
 .. code:: json
 
@@ -476,9 +472,8 @@ From the CloudServer Repository
 config.json
 ^^^^^^^^^^^
 
-.. IMPORTANT::
-   Only follow this section to define a given location as the default for
-   a specific endpoint.
+*IMPORTANT*
+   Only follow this section to define a given location as the default for a specific endpoint.
 
 Edit the :code:`restEndpoint` section of the :code:`config.json` file to add an
 endpoint definition that matches your desired default endpoint location.
