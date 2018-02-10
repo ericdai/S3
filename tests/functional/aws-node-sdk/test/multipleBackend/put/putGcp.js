@@ -28,7 +28,7 @@ function checkGcp(key, gcpMD5, location, callback) {
             assert.strictEqual(res.Metadata['scal-etag'], gcpMD5);
         } else {
             assert.strictEqual(
-                res.ETag.substring(1, res.ETag.length - 1), gcpMD5);
+                res.ETag, `"${gcpMD5}"`);
         }
         assert.strictEqual(res.Metadata['scal-location-constraint'],
             location);

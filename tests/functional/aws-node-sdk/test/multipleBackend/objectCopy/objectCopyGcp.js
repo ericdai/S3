@@ -5,7 +5,7 @@ const withV4 = require('../../support/withV4');
 const BucketUtility = require('../../../lib/utility/bucket-util');
 const constants = require('../../../../../../constants');
 const { describeSkipIfNotMultiple, memLocation, awsLocation,
-    gcpClient, gcpBucket, gcpLocation, gcpLocation2, gcpLocationMismatch } =
+    gcpClient, gcpBucket, gcpLocation, gcpLocationMismatch } =
     require('../utils');
 const { createEncryptedBucketPromise } =
     require('../../../lib/utility/createEncryptedBucket');
