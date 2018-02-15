@@ -77,9 +77,9 @@
     },
     "mongodb": {
        "host": "localhost",
-       "port": 27018,
+       "port": 27017,
        "writeConcern": "majority",
-       "replicaSet": "",
+       "replicaSet": "rs0",
        "readPreference": "primary",
        "database": "metadata"
     }
